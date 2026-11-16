@@ -52,7 +52,9 @@ def home():
 
 
 # HTTP GET - Read Record
-
+@app.route("/random")
+def get_random_caffe():
+    pass
 # HTTP POST - Create Record
 
 # HTTP PUT/PATCH - Update Record
