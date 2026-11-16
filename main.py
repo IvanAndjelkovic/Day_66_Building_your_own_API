@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, Boolean
-
+from sqlalchemy import Integer, String, Boolean, func
+import random
 '''
 Install the required packages first: 
 Open the Terminal in PyCharm (bottom left). 
@@ -54,7 +54,24 @@ def home():
 # HTTP GET - Read Record
 @app.route("/random")
 def get_random_caffe():
-    pass
+    if request.method=="GET":
+        result=db.session.execute(db.select(Cafe))
+        all_cafes=result.scalars().all()
+        random_caffe=random.choice(all_cafes)
+        print(random_caffe.name)
+        return jsonify([{
+            "id": random_caffe.id,
+            "name": random_caffe.name,
+            "map_url": random_caffe.map_url,
+            "img_url": random_caffe.img_url,
+            "location": random_caffe.location,
+            "seats": random_caffe.location,
+            "has_toilet": random_caffe.has_toilet,
+            "has_wifi": random_caffe.has_wifi,
+            "has_sockets": random_caffe.has_sockets,
+            "can_take_calls": random_caffe.can_take_calls,
+            "coffee_price": random_caffe.coffee_price,
+        }])
 # HTTP POST - Create Record
 
 # HTTP PUT/PATCH - Update Record
