@@ -87,6 +87,16 @@ def get_random_caffe():
         #     "coffee_price": random_caffe.coffee_price,
         # })
         return jsonify(cafa=random_caffe.to_dict())
+
+@app.route("/all")
+def get_all_caffes():
+    if request.method=="GET":
+        result=db.session.execute(db.select(Cafe))
+        all_cafes=result.scalars().all()
+        print(all_cafes)
+        merge = [cafe.to_dict() for cafe in all_cafes]
+        return jsonify(cafes=merge)
+
 # HTTP POST - Create Record
 
 # HTTP PUT/PATCH - Update Record
