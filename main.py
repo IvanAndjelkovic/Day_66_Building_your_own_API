@@ -72,20 +72,7 @@ def get_random_caffe():
         result=db.session.execute(db.select(Cafe))
         all_cafes=result.scalars().all()
         random_caffe=random.choice(all_cafes)
-        print(random_caffe.name)
-        # return jsonify(cafe={
-        #     "id": random_caffe.id,
-        #     "name": random_caffe.name,
-        #     "map_url": random_caffe.map_url,
-        #     "img_url": random_caffe.img_url,
-        #     "location": random_caffe.location,
-        #     "seats": random_caffe.location,
-        #     "has_toilet": random_caffe.has_toilet,
-        #     "has_wifi": random_caffe.has_wifi,
-        #     "has_sockets": random_caffe.has_sockets,
-        #     "can_take_calls": random_caffe.can_take_calls,
-        #     "coffee_price": random_caffe.coffee_price,
-        # })
+
         return jsonify(cafa=random_caffe.to_dict())
 
 @app.route("/all")
@@ -93,7 +80,7 @@ def get_all_caffes():
     if request.method=="GET":
         result=db.session.execute(db.select(Cafe))
         all_cafes=result.scalars().all()
-        print(all_cafes)
+
         merge = [cafe.to_dict() for cafe in all_cafes]
         return jsonify(cafes=merge)
 
